@@ -1,0 +1,32 @@
+<legend>Formulaire d'inscription</legend>
+<form name="loginForm" ng-submit="loginForm.$valid && signin()" novalidate>
+<div class="form-group">
+    <label for="username">Adresse mail :</label>
+    <input type="email" class="form-control" id="mailad" placeholder="Adresse mail" ng-model="mailad" required>
+</div>
+<div class="form-group">
+    <label for="password">Mot de passe :</label>
+    <input type="password" class="form-control" id="password" placeholder="Mot de passe" ng-model="password" required>
+</div>
+<div class="form-group">
+    <label for="confpassword">Confirmation mot de passe :</label>
+    <input type="password" class="form-control" id="confpassword" placeholder="confirmation mot de passe" ng-model="confpassword" required>
+</div>
+<div class="form-group">
+    <label for="nomad">Nom :</label>
+    <input type="text" class="form-control" id="nomad" placeholder="nom" ng-model="nomad" required>
+</div>
+<div class="form-group">
+    <label for="prenomad">Prénom:</label>
+    <input type="text" class="form-control" id="prenomad" placeholder="prenom" ng-model="prenomad" required>
+</div>
+<div class="form-group">
+    <label for="date_naissad">Date de naissance</label>
+    <input type="date" class="form-control" id="date_naissad"ng-model="date_naissad" required>
+</div>
+<div class="form-group">
+    <label for="telad">Numéro de téléphone</label>
+    <input type="int" class="form-control" id="telad" placeholder="06..." ng-model="telad" required>
+</div>
+<input type="submit" class="btn btn-primary" value="Inscription" />
+</form>
