@@ -15,14 +15,14 @@ myApp.factory('AuthenticationFactory', function($window) {
 myApp.factory('UserAuthFactory', function($window, $location, $http, AuthenticationFactory) {
     return {
         login: function(mailad, password) {
-            return $http.post('http://localhost:3000/login', {
+            return $http.post('http://109.30.180.96:3000/login', {
                 mailad: mailad,
                 password: password
             });
         },
         signin:function(mailad,password,confpassword,nomad,prenomad,date_naissad,telad){
 
-          return $http.post('http://localhost:3000/signin', {
+          return $http.post('http://109.30.180.96:3000/signin', {
               mailad: mailad,
               password: password,
               confpassword: confpassword,

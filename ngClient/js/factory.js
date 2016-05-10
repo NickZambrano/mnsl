@@ -1,6 +1,6 @@
 myApp.factory('membreFactory', function($http) {
     /** https://docs.angularjs.org/guide/providers **/
-    var urlBase = 'http://localhost:3000/api/members';
+    var urlBase = 'http://109.30.180.96:3000/api/members';
     var _membFactory = {};
     _membFactory.getMembres = function() {
         return $http.get(urlBase);
