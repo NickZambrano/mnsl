@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var auth = require('./auth.js');
-var products = require('./products.js');
+var members = require('./members.js');
 var user = require('./users.js');
 
 /*
@@ -14,11 +14,11 @@ router.post('/signin', auth.signin);
 /*
  * Routes that can be accessed only by autheticated users
  */
-router.get('/api/members', products.getAll);
-router.get('/api/members:id', products.getOne);
-router.post('/api/members', products.create);
-router.put('/api/members:id', products.update);
-router.delete('/api/members:id', products.delete);
+router.get('/api/members', members.getAll);
+router.get('/api/members/:id', members.getOne);
+router.post('/api/members', members.create);
+router.put('/api/members/:id', members.update);
+router.delete('/api/members/:id', members.delete);
 
 /*
  * Routes that can be accessed only by authenticated & authorized users

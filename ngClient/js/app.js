@@ -40,6 +40,13 @@ myApp.config(function($routeProvider, $httpProvider) {
             access: {
                 requiredLogin: true
             }
+        }).when('/membres/:id', {
+          
+            templateUrl: 'partials/profil.html',
+            controller: 'MembresCtrl',
+            access: {
+                requiredLogin: true
+            }
         }).otherwise({
             redirectTo: '/login'
         });

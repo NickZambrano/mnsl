@@ -32,12 +32,25 @@ myApp.controller("Page2Ctrl", ['$scope',
 ]);
 
 /// snipp
-myApp.controller("MembresCtrl", ['$scope', 'dataFactory',
-    function($scope, dataFactory) {
+myApp.controller("MembresCtrl", ['$scope', 'membreFactory',
+    function($scope, membreFactory) {
         $scope.members = [];
         // Access the factory and get the latest products list
-        dataFactory.getProducts().then(function(data) {
-            $scope.products = data.data;
+        membreFactory.getMembres().then(function(data) {
+
+             $scope.members= data.data.rows;
+        });
+    }
+]);
+
+myApp.controller("MembreCtrl", ['$scope', 'membreFactory','$routeParams',
+    function($scope, membreFactory, $routeParams) {
+      console.log($routeParams.id);
+        $scope.profil = [];
+        // Access the factory and get the latest products list
+        membreFactory.getOne($routeParams.id).then(function(data) {
+
+             $scope.profil= data.data.rows[0];
         });
     }
 ]);

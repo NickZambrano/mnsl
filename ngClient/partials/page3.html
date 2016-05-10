@@ -6,12 +6,16 @@
     <p class="lead">
         <table class="table table-striped">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th></th>
             </tr>
-            <tr ng-repeat="p in products">
-                <td>{{p.id}}</td>
-                <td>{{p.name}}</td>
+            <tr ng-repeat="m in members">
+                <td>{{m.nomad}}</td>
+                <td>{{m.prenomad}}</td>
+                <td>{{m.mailad}}</td>
+                <td><a class="btn btn-primary" ng-href="#/membres/{{m.mailad}}">voir profil</a></td>
             </tr>
         </table>
     </p>

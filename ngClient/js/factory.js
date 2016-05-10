@@ -1,9 +1,12 @@
-myApp.factory('dataFactory', function($http) {
+myApp.factory('membreFactory', function($http) {
     /** https://docs.angularjs.org/guide/providers **/
     var urlBase = 'http://localhost:3000/api/members';
-    var _prodFactory = {};
-    _prodFactory.getProducts = function() {
+    var _membFactory = {};
+    _membFactory.getMembres = function() {
         return $http.get(urlBase);
     };
-    return _prodFactory;
+    _membFactory.getOne = function(id) {
+        return $http.get(urlBase+"/"+id);
+    };
+    return _membFactory;
 });

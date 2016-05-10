@@ -1,12 +1,20 @@
-var products = {
+var members = {
     getAll: function(req, res) {
-        var allProducts = data; // Spoof a DB call
-        res.json(allProducts);
+      var stringQuery = "SELECT * FROM adherents";
+      var query=client.query(stringQuery,function(err,result){
+         res.send(result);
+      });
+
+      return;
     },
     getOne: function(req, res) {
         var id = req.params.id;
-        var product = data[0]; // Spoof a DB call
-        res.json(product);
+        console.log(id);
+        var stringQuery = "SELECT * FROM adherents WHERE mailad='"+id+"'";
+        var query=client.query(stringQuery,function(err,result){
+           res.send(result);
+        });
+
     },
     create: function(req, res) {
         var newProduct = req.body;
@@ -26,7 +34,7 @@ var products = {
     }
 };
 var data = [{
-    name: 'product 1',
+    name: 'members 1',
     id: '1'
 }, {
     name: 'product 2',
@@ -35,4 +43,4 @@ var data = [{
     name: 'product 3',
     id: '3'
 }];
-module.exports = products;
+module.exports = members;
