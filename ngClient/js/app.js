@@ -41,8 +41,13 @@ myApp.config(function($routeProvider, $httpProvider) {
                 requiredLogin: true
             }
         }).when('/membres/:id', {
-          
             templateUrl: 'partials/profil.html',
+            controller: 'MembresCtrl',
+            access: {
+                requiredLogin: true
+            }
+        }).when('/membres/edit/:id', {
+            templateUrl: 'partials/edit.html',
             controller: 'MembresCtrl',
             access: {
                 requiredLogin: true

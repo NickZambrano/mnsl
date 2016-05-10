@@ -24,7 +24,11 @@ var members = {
     update: function(req, res) {
         var updateProduct = req.body;
         var id = req.params.id;
-        data[id] = updateProduct // Spoof a DB call
+        console.log(req.params);
+        /*var stringQuery = "UPDATE adherents SET req. WHERE mailad='"+id+"'";
+        var query=client.query(stringQuery,function(err,result){
+           res.send(result);
+        });*/
         res.json(updateProduct);
     },
     delete: function(req, res) {

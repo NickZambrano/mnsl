@@ -52,5 +52,8 @@ myApp.controller("MembreCtrl", ['$scope', 'membreFactory','$routeParams',
 
              $scope.profil= data.data.rows[0];
         });
+        membreFactory.update($scope.profil).then(function(data){
+
+        });
     }
 ]);
