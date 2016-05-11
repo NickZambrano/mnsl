@@ -3,6 +3,7 @@ var router = express.Router();
 
 var auth = require('./auth.js');
 var members = require('./members.js');
+var dip = require('./dip.js');
 var user = require('./users.js');
 
 /*
@@ -16,9 +17,14 @@ router.post('/signin', auth.signin);
  */
 router.get('/api/members', members.getAll);
 router.get('/api/members/:id', members.getOne);
+router.get('/api/myProfile', members.getMy);
 router.post('/api/members', members.create);
 router.put('/api/members/:id', members.update);
 router.delete('/api/members/:id', members.delete);
+
+
+router.post('/api/dip/addDip', dip.create);
+router.get('/api/dip', dip.getAll);
 
 /*
  * Routes that can be accessed only by authenticated & authorized users

@@ -45,7 +45,6 @@ myApp.controller("MembresCtrl", ['$scope', 'membreFactory',
 
 myApp.controller("MembreCtrl", ['$scope', 'membreFactory','$routeParams',
     function($scope, membreFactory, $routeParams) {
-      console.log($routeParams.id);
         $scope.profil = [];
         // Access the factory and get the latest products list
         membreFactory.getOne($routeParams.id).then(function(data) {
@@ -54,6 +53,54 @@ myApp.controller("MembreCtrl", ['$scope', 'membreFactory','$routeParams',
         });
         membreFactory.update($scope.profil).then(function(data){
 
+        });
+    }
+]);
+myApp.controller("myProfileCtrl", ['$scope', 'membreFactory','$routeParams',
+    function($scope, membreFactory, $routeParams) {
+      console.log("test");
+        $scope.profil = [];
+        // Access the factory and get the latest products list
+        membreFactory.getMy().then(function(data) {
+            console.log(data.data);
+             $scope.profil= data.data;
+        });
+    }
+]);
+
+myApp.controller("addFormCtrl", ['$scope', 'membreFactory','$routeParams',
+    function($scope, membreFactory, $routeParams) {
+      console.log("test");
+        $scope.profil = [];
+        // Access the factory and get the latest products list
+        membreFactory.getMy().then(function(data) {
+            console.log(data.data);
+             $scope.profil= data.data;
+        });
+    }
+]);
+myApp.controller("addDipCtrl", ['$scope','dipFactory','$routeParams',
+    function($scope, dipFactory, $routeParams) {
+      $scope.addDip = function() {
+
+        if ($scope.nomdiplome !== undefined && $scope.dureediplome !== undefined) {
+            dipFactory.addDip($scope.nomdiplome,$scope.dureediplome).success(function(data) {
+            }).error(function(status) {
+                alert('Oops something went wrong!');
+            });
+        } else {
+           alert('Invalid credentials');
+        }
+        }
+    }
+]);
+myApp.controller("DiplomesCtrl", ['$scope', 'dipFactory',
+    function($scope, dipFactory) {
+        $scope.diplomes = [];
+        // Access the factory and get the latest products list
+        dipFactory.getDiplomes().then(function(data) {
+
+             $scope.diplomes= data.data.rows;
         });
     }
 ]);

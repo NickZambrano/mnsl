@@ -22,15 +22,15 @@ myApp.config(function($routeProvider, $httpProvider) {
             access: {
                 requiredLogin: true
             }
-        }).when('/page1', {
-            templateUrl: 'partials/page1.html',
-            controller: 'Page1Ctrl',
+        }).when('/diplomes', {
+            templateUrl: 'partials/diplomes.html',
+            controller: 'DiplomesCtrl',
             access: {
                 requiredLogin: true
             }
-        }).when('/page2', {
-            templateUrl: 'partials/page2.html',
-            controller: 'Page2Ctrl',
+        }).when('/Formations', {
+            templateUrl: 'partials/formations.html',
+            controller: 'FormationsCtrl',
             access: {
                 requiredLogin: true
             }
@@ -42,13 +42,31 @@ myApp.config(function($routeProvider, $httpProvider) {
             }
         }).when('/membres/:id', {
             templateUrl: 'partials/profil.html',
-            controller: 'MembresCtrl',
+            controller: 'MembreCtrl',
             access: {
                 requiredLogin: true
             }
         }).when('/membres/edit/:id', {
             templateUrl: 'partials/edit.html',
-            controller: 'MembresCtrl',
+            controller: 'MembreCtrl',
+            access: {
+                requiredLogin: true
+            }
+        }).when('/myProfile', {
+            templateUrl: 'partials/myProfile.html',
+            controller: 'myProfileCtrl',
+            access: {
+                requiredLogin: true
+            }
+        }).when('/addFormation', {
+            templateUrl: 'partials/addFormation.html',
+            controller: 'addFormCtrl',
+            access: {
+                requiredLogin: true
+            }
+        }).when('/addDiplome', {
+            templateUrl: 'partials/addDiplome.html',
+            controller: 'addDipCtrl',
             access: {
                 requiredLogin: true
             }

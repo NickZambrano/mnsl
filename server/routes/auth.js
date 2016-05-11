@@ -152,7 +152,9 @@ var auth = {
 // private method
 function genToken(user) {
     var expires = expiresIn(7); // 7 days
+    console.log(user);
     var token = jwt.encode({
+        mailad:user.username,
         exp: expires
     }, require('../config/secret')());
 

@@ -1,0 +1,12 @@
+<legend>Formulaire d'ajout de diplome</legend>
+<form name="dipForm" ng-submit="dipForm.$valid && addDip()" novalidate>
+<div class="form-group">
+    <label for="nomdiplome">Nom du diplome :</label>
+    <input type="text" class="form-control" id="nomdiplome" placeholder="ex : BNSSA" ng-model="nomdiplome" required>
+</div>
+<div class="form-group">
+    <label for="dureediplome">Durée de validité du diplome:</label>
+    <input type="number" class="form-control" id="dureediplome" ng-model="dureediplome" required>
+</div>
+<input type="submit" class="btn btn-primary" value="Ajouter" />
+</form>

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+		<div class="well">
+      <a class="btn btn-primary pull-right" ng-href="#/addDiplome">Ajouter un diplome</a>
+        <h1 class="text-center">Diplomes présent de notre société</h1>
+        <p class="lead">
+            <table class="table table-striped">
+                <tr>
+                    <th>Numéro de diplome</th>
+                    <th>Nom diplome</th>
+                    <th>Durée du diplome</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="d in diplomes">
+                    <td>{{d.numdiplome}}</td>
+                    <td>{{d.nomdiplome}}</td>
+                    <td>{{d.dureediplome}}</td>
+                </tr>
+            </table>
+        </p>
+        </div>
+	</div>
+</div>

@@ -8,6 +8,8 @@
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" placeholder="Password" ng-model="password" required>
 </div>
+
 <a class="btn btn-primary" ng-href="#/signin">Inscription</a>
 <input type="submit" class="btn btn-primary" value="connexion" />
+<span ng-show={{error}}> true</span>
 </form>
