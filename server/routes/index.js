@@ -4,6 +4,7 @@ var router = express.Router();
 var auth = require('./auth.js');
 var members = require('./members.js');
 var dip = require('./dip.js');
+var form = require('./form.js');
 var user = require('./users.js');
 
 /*
@@ -25,6 +26,9 @@ router.delete('/api/members/:id', members.delete);
 
 router.post('/api/dip/addDip', dip.create);
 router.get('/api/dip', dip.getAll);
+
+router.post('/api/form/addForm', form.create);
+router.get('/api/form', form.getAll);
 
 /*
  * Routes that can be accessed only by authenticated & authorized users
