@@ -117,6 +117,15 @@ var auth = {
 
 
   },
+  isAdmin:function(req,res){
+    var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
+    var decoded = jwt.decode(token, require('../config/secret.js')());
+    role=decoded.role;
+    user={
+      role:role,
+    }
+    res.json(user);
+  },
 
   validate: function(username, password, callback) {
     var stringQuery = "SELECT * FROM adherents WHERE mailad='"+username+"' AND mdpad='"+password+"'";
@@ -154,6 +163,7 @@ function genToken(user) {
     var expires = expiresIn(7); // 7 days
     console.log(user);
     var token = jwt.encode({
+        role:user.role,
         mailad:user.username,
         exp: expires
     }, require('../config/secret')());

@@ -49,7 +49,7 @@ myApp.factory('formFactory', function($http) {
         return $http.get(urlBase);
       },
     addForm:function(typeformation,numdiplome,datedebformation,datefinformation,nbplace){
-      return $http.post(portLocal+':3000/api/form/addform', {
+      return $http.post(urlBase+'/addform', {
           typeformation:typeformation,
           numdiplome:numdiplome,
           datedebformation:datedebformation,
@@ -57,5 +57,21 @@ myApp.factory('formFactory', function($http) {
           nbplace:nbplace
       });
     },
+    addParticipation:function(id){
+      console.log(id);
+      return $http.post(urlBase+'/addParticipation',{
+        numFormation:id
+      })
+    },
     }
+});
+myApp.factory('HeaderFact',function($http){
+  return{
+    isAdmin:function(){
+      var portLocal="http://localhost";
+      var portDist="http://109.30.180.96"
+      return $http.get(portLocal+":3000/admin");
+    },
+  }
+
 });

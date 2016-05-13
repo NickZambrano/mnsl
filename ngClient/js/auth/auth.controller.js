@@ -5,6 +5,7 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
                 password = $scope.password;
             if (username !== undefined && password !== undefined) {
                 UserAuthFactory.login(username, password).success(function(data) {
+
                     AuthenticationFactory.isLogged = true;
                     AuthenticationFactory.user = data.user.mailad;
                     AuthenticationFactory.userRole = data.user.role;

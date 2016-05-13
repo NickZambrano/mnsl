@@ -12,7 +12,7 @@ var user = require('./users.js');
  */
 router.post('/login', auth.login);
 router.post('/signin', auth.signin);
-
+router.get('/admin', auth.isAdmin);
 /*
  * Routes that can be accessed only by autheticated users
  */
@@ -28,6 +28,7 @@ router.post('/api/dip/addDip', dip.create);
 router.get('/api/dip', dip.getAll);
 
 router.post('/api/form/addForm', form.create);
+router.post('/api/form/addParticipation', form.addPart);
 router.get('/api/form', form.getAll);
 
 /*

@@ -70,11 +70,17 @@ myApp.config(function($routeProvider, $httpProvider) {
             access: {
                 requiredLogin: true
             }
+        }).when('/insciption/:id', {
+            templateUrl: 'partials/FormationsCtrl.html',
+            controller: 'FormationsCtrl',
+            access: {
+                requiredLogin: true
+            }
         }).otherwise({
             redirectTo: '/login'
         });
 });
-myApp.run(function($rootScope, $window, $location, AuthenticationFactory) {
+myApp.run(function($rootScope, $window, $location, AuthenticationFactory,HeaderFact) {
     // when the page refreshes, check if the user is already logged in
     AuthenticationFactory.check();
     $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
@@ -89,6 +95,15 @@ myApp.run(function($rootScope, $window, $location, AuthenticationFactory) {
     $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
         $rootScope.showMenu = AuthenticationFactory.isLogged;
         $rootScope.role = AuthenticationFactory.userRole;
+        $rootScope.admin=false;
+          HeaderFact.isAdmin().then(function(data){
+            if(data.data.role=='admin'){
+              $rootScope.admin=true;
+            }else{
+              $rootScope.admin=false;
+            }
+
+          })
         // if the user is already logged in, take him to the home page
         if (AuthenticationFactory.isLogged == true && $location.path() == '/login') {
             $location.path('/');

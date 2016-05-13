@@ -14,12 +14,21 @@ var dip={
         return;
     }
       var stringQuery = "INSERT INTO diplome(nomdiplome, dureediplome) values('"+nomDiplome+"','"+dureeDiplome+"')";
-      client.query(stringQuery);
-      res.status(200);
-      res.json({
-        "status" : 200,
-        "message" : "succes to insert diplome"
-      })
+      client.query(stringQuery,function(err,result){
+        if(err==undefined){
+          res.status(200);
+          res.json({
+            "status" : 200,
+            "message" : "succes to insert diplome"
+          })
+        }else{
+          res.status(500);
+          res.json({
+            "status" : 500,
+            "message" : "failed to insert diplome"
+          })
+        }
+      });
       return;
   },
   getAll: function(req, res) {

@@ -1,11 +1,13 @@
-myApp.controller("HeaderCtrl", ['$scope', '$location', 'UserAuthFactory', 'AuthenticationFactory',
-    function($scope, $location, UserAuthFactory,AuthenticationFactory) {
+myApp.controller("HeaderCtrl", ['$scope','$rootScope', '$location', 'UserAuthFactory', 'AuthenticationFactory','HeaderFact',
+    function($scope,$rootScope, $location, UserAuthFactory,AuthenticationFactory, HeaderFact) {
+
 
 
         $scope.isActive = function(route) {
             return route === $location.path();
         }
         $scope.logout = function() {
+          $rootScope.admin=false;
             UserAuthFactory.logout();
         }
     }
@@ -62,7 +64,6 @@ myApp.controller("myProfileCtrl", ['$scope', 'membreFactory','$routeParams',
         $scope.profil = [];
         // Access the factory and get the latest products list
         membreFactory.getMy().then(function(data) {
-            console.log(data.data);
              $scope.profil= data.data;
         });
     }
@@ -77,10 +78,9 @@ myApp.controller("addFormCtrl", ['$scope','$location', 'dipFactory','formFactory
              $scope.diplomes= data.data.rows;
         });
         $scope.addForm = function() {
-          console.log("test");
           if ($scope.typeformation !== undefined && $scope.numdiplome !== undefined) {
               formFactory.addForm($scope.typeformation,$scope.numdiplome,$scope.datedebformation,$scope.datefinformation,$scope.nbplace).success(function(data) {
-                $location.path("/formations");
+                $location.path("/Formations");
               }).error(function(status) {
                   alert('Oops something went wrong!');
               });
@@ -115,13 +115,17 @@ myApp.controller("DiplomesCtrl", ['$scope', 'dipFactory',
         });
     }
 ]);
-myApp.controller("FormationsCtrl", ['$scope', 'formFactory',
-    function($scope, formFactory) {
+myApp.controller("FormationsCtrl", ['$scope', 'formFactory','$routeParams',
+    function($scope, formFactory,$routeParams) {
         $scope.formations = [];
         // Access the factory and get the latest products list
         formFactory.getFormations().then(function(data) {
 
              $scope.formations= data.data.rows;
         });
+        $scope.addPart=function(id){
+          console.log(id);
+          formFactory.addParticipation(id);
+    }
     }
 ]);

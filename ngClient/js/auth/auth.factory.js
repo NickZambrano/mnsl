@@ -1,8 +1,10 @@
-myApp.factory('AuthenticationFactory', function($window) {
+myApp.factory('AuthenticationFactory', function($window,$http) {
     var auth = {
         isLogged: false,
         check: function() {
             if ($window.sessionStorage.token && $window.sessionStorage.user) {
+              var portLocal="http://localhost";
+              var portDist="http://109.30.180.96";
                 this.isLogged = true;
             } else {
                 this.isLogged = false;

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
 		<div class="well">
-      <a class="btn btn-primary pull-right" ng-href="#/addFormation">Ajouter un diplome</a>
+      <a class="btn btn-primary pull-right" ng-href="#/addFormation" ng-show ="admin">Ajouter un diplome</a>
         <h1 class="text-center">Formations disponibles</h1>
         <div class="list-group">
           <div ng-repeat="f in formations"
@@ -12,14 +12,14 @@
                     </figure>
                 </div>
                 <div class="col-md-6">
-                    <h4 class="list-group-item-heading"> {{f.typeformation}} </h4>
+                    <h4 class="list-group-item-heading"> {{f.typeformation}} du {{f.nomdiplome}} </h4>
                     <p class="list-group-item-text"> Qui diam libris ei, vidisse incorrupte at mel. His euismod salutandi dissentiunt eu. Habeo offendit ea mea. Nostro blandit sea ea, viris timeam molestiae an has. At nisl platonem eum.
                         Vel et nonumy gubergren, ad has tota facilis probatus. Ea legere legimus tibique cum, sale tantas vim ea, eu vivendo expetendis vim. Voluptua vituperatoribus et mel, ius no elitr deserunt mediocrem. Mea facilisi torquatos ad.
                     </p>
                 </div>
                 <div class="col-md-3 text-center">
                     <h2> {{f.nbplace}} <small> places restantes </small></h2>
-                    <button type="button" class="btn btn-default btn-lg btn-block"> s'incrire </button>
+                    <a class="btn btn-default btn-lg btn-block" ng-click="addPart(f.numformation)"> s'incrire </a>
                     <p> Average 4.5 <small> / </small> 5 </p>
                 </div>
           </a>
