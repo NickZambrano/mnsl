@@ -49,6 +49,15 @@ a.list-group-item {
 a.list-group-item.active small {
     color:#fff;
 }
-.stars {
-    margin:20px auto 1px;
+.index > h2{
+    font-size: 45px;
+}
+.index{
+    text-align:center;
+}
+.img-circle {
+    border-radius: 50%;
+}
+.row-img{
+    margin-top: 05%;
 }

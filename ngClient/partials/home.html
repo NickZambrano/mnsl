@@ -1,29 +1,27 @@
 <div class="container" ng-controller="HomeCtrl">
   <div class="page-header">
-    <h3>This is from {{ name }}</h3>
+    <h3>Bienvenue sur le site MNSL</h3>
   </div>
-
-
-  <p class="lead">This app is scaffolded by
-    <code>slush-ng</code></p>
-
-  <p class="lead">This app uses <code>Bootstrap</code> for styling. If you are looking to add functional Bootstrap components, refer <a href="http://angular-ui.github.io/bootstrap/" target="_blank">UI Bootstrap</a>.
-  </p>
-
-  <p class="lead">This app is baked in with
-    <ul>
-      <li>Gulp - A task runner</li>
-      <li>Bower - A client side dependency manager</li>
-    </ul>
-  </p>
-
-  <p class="lead">This app comes integrated with
-    <code>angular-route</code>,
-    <code>controllers</code>, a sample
-    <code>directive</code> and a sample
-    <code>filter</code>
-  </p>
-
-  <p class="lead">This app also has a sample <code>factory</code> layer, that can be used to interact with RESTful services (includes an example too).</p>
-
+  <div class="index">
+  <div class="row-img">
+    <div class="col-lg-4">
+        <a title="Voir les diplomes présents sur notre site" ng-href="#/diplomes" role="button"><img class="img-circle" src="../images/student-icon.png" alt="Generic placeholder image" style="width: 140px; height: 140px;"></a>
+      <h2>Diplomes</h2>
+      <p>A travers ce lien vous allez pouvoir consulter les différents diplomes présents sur notre site et dont nos formateurs ont les autorisations d'enseigner.</p>
+      <p><a class="btn btn-success" title="Voir les diplomes présents sur notre site" ng-href="#/diplomes" role="button">Voir</a></p>
+    </div>
+    <div class="col-lg-4">
+        <a title="Voir les formations" ng-href="#/Formations" role="button"><img class="img-circle" src="../images/stat-icon.png" alt="Generic placeholder image" style="width: 140px; height: 140px;"></a>
+      <h2>Formations</h2>
+      <p>Ici, il sera possible de voir les différentes formations auxquelles vous pourrez participer afin d'obtenir votre diplome</p>
+      <p><a class="btn btn-success" title="Voir les formations" ng-href="#/Formations" role="button">Voir</a></p>
+    </div>
+    <div class="col-lg-4">
+        <a  title="Voir les membres du site" ng-href="#/membres" role="button"><img class="img-circle" src="../images/contact-icon.png" alt="Generic placeholder image" style="width: 140px; height: 140px;"></a>
+      <h2>Membres</h2>
+      <p>Enfin, il vous est possible de consulter les différents membres du site.</p>
+      <p><a class="btn btn-success" title="Voir les membres du site" ng-href="#/membres" role="button">Voir</a></p>
+    </div>
+  </div>
+  </div>
 </div>
