@@ -69,8 +69,8 @@ myApp.controller("myProfileCtrl", ['$scope', 'membreFactory','$routeParams',
     }
 ]);
 
-myApp.controller("addFormCtrl", ['$scope','$location', 'dipFactory','formFactory',
-    function($scope,$location,dipFactory, formFactory) {
+myApp.controller("addFormCtrl", ['$scope','$location', 'dipFactory','formFactory','$filter',
+    function($scope,$location,dipFactory, formFactory, $filter) {
         $scope.diplomes = [];
         // Access the factory and get the latest products list
         dipFactory.getDiplomes().then(function(data) {
@@ -79,7 +79,10 @@ myApp.controller("addFormCtrl", ['$scope','$location', 'dipFactory','formFactory
         });
         $scope.addForm = function() {
           if ($scope.typeformation !== undefined && $scope.numdiplome !== undefined) {
-              formFactory.addForm($scope.typeformation,$scope.numdiplome,$scope.datedebformation,$scope.datefinformation,$scope.nbplace).success(function(data) {
+          //  datedeb=$scope.datedebformation.getDate().slice(-2)+"/"+("0" + ($scope.datedebformation.getMonth() + 1))+"/"+$scope.datedebformation.getFullYear();
+          //  datefin=$scope.datefinformation.getDate().slice(-2)+"/"+("0" + ($scope.datefinformation.getMonth() + 1))+"/"+$scope.datefinformation.getFullYear();
+            console.log($scope.datefinformation);
+              formFactory.addForm($scope.typeformation,$scope.numdiplome,$scope.datedebformation,$scope.datefinformation ,$scope.nbplace).success(function(data) {
                 $location.path("/Formations");
               }).error(function(status) {
                   alert('Oops something went wrong!');
@@ -115,17 +118,45 @@ myApp.controller("DiplomesCtrl", ['$scope', 'dipFactory',
         });
     }
 ]);
-myApp.controller("FormationsCtrl", ['$scope', 'formFactory','$routeParams',
-    function($scope, formFactory,$routeParams) {
+myApp.controller("FormationsCtrl", ['$scope', 'formFactory','$routeParams','$route','$location',
+    function($scope, formFactory,$routeParams,$route,$location) {
         $scope.formations = [];
+        $scope.formationDetails = [];
         // Access the factory and get the latest products list
         formFactory.getFormations().then(function(data) {
 
              $scope.formations= data.data.rows;
         });
+        if($routeParams.id!=undefined){
+        formFactory.getOne($routeParams.id).then(function(data) {
+            $scope.participate=data.data.participate;
+            $scope.form=data.data.form;
+              $scope.nopart=data.data.nopart;
+             $scope.formationDetails= data.data.rows;
+        }); }
         $scope.addPart=function(id){
-          console.log(id);
           formFactory.addParticipation(id);
+           $route.reload();
+           formFactory.getOne($routeParams.id).then(function(data) {
+               $scope.participate=data.data.participate;
+               $scope.form=data.data.form;
+               $scope.nopart=data.data.nopart;
+                $scope.formationDetails= data.data.rows;
+           });
     }
+    $scope.deletePart=function(id){
+      formFactory.deleteParticipation(id);
+       $route.reload();
+       formFactory.getOne($routeParams.id).then(function(data) {
+           $scope.participate=data.data.participate;
+           $scope.form=data.data.form;
+           $scope.nopart=data.data.nopart;
+            $scope.formationDetails= data.data.rows;
+       });
+       }
+       $scope.deleteForm=function(){
+         formFactory.deleteForm($routeParams.id);
+         $location.path("/Formations");
+}
     }
 ]);

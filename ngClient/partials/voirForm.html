@@ -1,0 +1,50 @@
+<div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{formationDetails[0].typeformation }} du {{formationDetails[0].nomdiplome}}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                Formation débutant le {{formationDetails[0].datedebformation | limitTo : 10}} finissant le {{formationDetails[0].datefinformation  | limitTo : 10}}
+
+                <div class="col-md-3 col-lg-3 " align="center"><h2> {{formationDetails[0].nbplace-formationDetails[0].nbparticipant}} <small> places restantes </small></h2>
+                  <a class="btn btn-default btn-lg btn-block" ng-hide="participate || form" ng-click="addPart(formationDetails[0].numformation)"> s'inscrire </a>
+                  <a class="btn btn-default btn-lg btn-block" ng-show="participate && !form" ng-click="deletePart(formationDetails[0].numformation)">désinscrire </a>
+                </div>
+
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information" ng-hide="nopart">
+                    <caption>Participants</caption>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                    </tr>
+                    <tbody>
+                      <tr ng-repeat="part in formationDetails">
+                          <td>{{part.nomad}}</td>
+                          <td>{{part.prenomad}}</td>
+                          <td ng-show="form"><a><i class="glyphicon glyphicon-ok"></i></a></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <h2 ng-show="nopart">Aucun participant à cette formation</h2>
+                </div>
+                Contactez le formateur : {{formationDetails[0].mailform}}
+              </div>
+
+            </div>
+                 <div class="panel-footer" ng-show="form">
+
+                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" ng-click="deleteForm()"><i class="glyphicon glyphicon-remove"></i></a>
+
+                    </div>
+
+          </div>
+        </div>
+      </div>
+    </div>

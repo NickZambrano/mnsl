@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 var pg = require('pg');
 
 var app = express();
-var pgConnectionString = "postgres://postgres:jlmstout7@localhost:5432/mnsl";
-//var pgConnectionString = "postgres://pi:1234@localhost:5432/mnsl";
+//var pgConnectionString = "postgres://postgres:jlmstout7@localhost:5432/mnsl";
+var pgConnectionString = "postgres://pi:1234@localhost:5432/mnsl";
 client = new pg.Client(pgConnectionString);
 client.connect();
 

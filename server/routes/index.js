@@ -29,7 +29,10 @@ router.get('/api/dip', dip.getAll);
 
 router.post('/api/form/addForm', form.create);
 router.post('/api/form/addParticipation', form.addPart);
+router.post('/api/form/deleteParticipation', form.deletePart);
+router.post('/api/form/deleteForm', form.delete);
 router.get('/api/form', form.getAll);
+router.get('/api/form/:id', form.getOne);
 
 /*
  * Routes that can be accessed only by authenticated & authorized users

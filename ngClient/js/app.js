@@ -35,7 +35,7 @@ myApp.config(function($routeProvider, $httpProvider) {
                 requiredLogin: true
             }
         }).when('/membres', {
-            templateUrl: 'partials/page3.html',
+            templateUrl: 'partials/membres.html',
             controller: 'MembresCtrl',
             access: {
                 requiredLogin: true
@@ -71,7 +71,13 @@ myApp.config(function($routeProvider, $httpProvider) {
                 requiredLogin: true
             }
         }).when('/insciption/:id', {
-            templateUrl: 'partials/FormationsCtrl.html',
+            templateUrl: 'partials/formations.html',
+            controller: 'FormationsCtrl',
+            access: {
+                requiredLogin: true
+            }
+        }).when('/Formations/:id', {
+            templateUrl: 'partials/voirForm.html',
             controller: 'FormationsCtrl',
             access: {
                 requiredLogin: true
@@ -96,14 +102,15 @@ myApp.run(function($rootScope, $window, $location, AuthenticationFactory,HeaderF
         $rootScope.showMenu = AuthenticationFactory.isLogged;
         $rootScope.role = AuthenticationFactory.userRole;
         $rootScope.admin=false;
+        if(AuthenticationFactory.isLogged){
           HeaderFact.isAdmin().then(function(data){
             if(data.data.role=='admin'){
               $rootScope.admin=true;
             }else{
               $rootScope.admin=false;
             }
-
           })
+          }
         // if the user is already logged in, take him to the home page
         if (AuthenticationFactory.isLogged == true && $location.path() == '/login') {
             $location.path('/');
