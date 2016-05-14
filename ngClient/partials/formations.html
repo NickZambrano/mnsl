@@ -3,8 +3,16 @@
 		<div class="well">
       <a class="btn btn-primary pull-right" style="margin-left:-30%"ng-href="#/addFormation" ng-show ="admin">Ajouter un diplome</a>
         <h1 class="text-center">Formations disponibles</h1>
+        Formations à voir :
+        <select class="form-control" style="width:10%"name="typeformation" ng-model="voir">
+          <option value="all">Toutes</option>
+          <option value="dispo">Disponibles</option>
+          <option value="encours">En cours</option>
+          <option value="termine">Terminée</option>
+      </select>
+    </br>
         <div class="list-group">
-          <div ng-repeat="f in formations" class="list-group-item" style="overflow: hidden;">
+          <div ng-repeat="f in formations  | startFrom:currentPage*pageSize | limitTo:pageSize" class="list-group-item" style="overflow: hidden;"  ng-show="(voir=='encours' && f.encours ) || (voir=='termine' && f.fini ) || (voir!='encours' && !f.encours && voir!='termine' && !f.fini ) || (voir=='all')  ">
                 <div class="media col-md-3">
                     <figure class="pull-left">
                         <img ng-show="f.typeformation == 'RECYCLAGE'"class="media-object img-rounded img-responsive"  src="../images/recyclage.png" alt="placehold.it/350x250" >
@@ -15,6 +23,9 @@
                 </div>
                 <div class="col-md-6">
                     <h4 class="list-group-item-heading"> {{f.typeformation}} du {{f.nomdiplome}} </h4>
+                    <h3 style="color:green" ng-show="!f.encours && !f.fini"> Formation disponible</h3>
+                    <h3 style="color:orange" ng-show="f.encours"> Formation en cours</h3>
+                    <h3 style="color:red" ng-show="f.fini">Formation terminée</h3>
                     <p class="list-group-item-text">Formation débutant le {{f.datedebformation | limitTo : 10}} finissant le {{f.datefinformation  | limitTo : 10}}
   </p>
                 </div>
@@ -25,5 +36,12 @@
 *
         </div>
         </div>
+        <button class="btn btn-primary btn-sm" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+     Précédent
+ </button>
+{{currentPage+1}}/{{numberOfPages()}}
+ <button class="btn btn-primary btn-sm" ng-disabled="currentPage >= formations.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+     Suivant
+ </button>
 	</div>
 </div>

@@ -42,6 +42,11 @@ myApp.controller("MembresCtrl", ['$scope', 'membreFactory',
 
              $scope.members= data.data.rows;
         });
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+        $scope.numberOfPages=function(){
+          return Math.ceil($scope.members.length/$scope.pageSize);
+        }
     }
 ]);
 
@@ -116,20 +121,35 @@ myApp.controller("DiplomesCtrl", ['$scope', 'dipFactory',
 
              $scope.diplomes= data.data.rows;
         });
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+        $scope.numberOfPages=function(){
+          return Math.ceil($scope.diplomes.length/$scope.pageSize);
+        }
     }
 ]);
 myApp.controller("FormationsCtrl", ['$scope', 'formFactory','$routeParams','$route','$location',
     function($scope, formFactory,$routeParams,$route,$location) {
         $scope.formations = [];
         $scope.formationDetails = [];
+        $scope.voir='all';
         // Access the factory and get the latest products list
         formFactory.getFormations().then(function(data) {
 
              $scope.formations= data.data.rows;
+
         });
+        $scope.currentPage = 0;
+        $scope.pageSize = 3;
+        $scope.numberOfPages=function(){
+          return Math.ceil($scope.formations.length/$scope.pageSize);
+        }
         if($routeParams.id!=undefined){
         formFactory.getOne($routeParams.id).then(function(data) {
             $scope.participate=data.data.participate;
+            $scope.encours=data.data.encours;
+            $scope.fini=data.data.fini;
+            console.log(data.data);
             $scope.form=data.data.form;
               $scope.nopart=data.data.nopart;
              $scope.formationDetails= data.data.rows;

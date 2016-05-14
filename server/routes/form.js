@@ -143,6 +143,17 @@ var form={
         if(result.rows[0]!=undefined){
           result.nopart=false;
           result.participate=false;
+          result.encours=false;
+          result.fini=false;
+          datedeb=result.rows[0].datedebformation;
+          datefin=result.rows[0].datefinformation;
+          if(dateNow> datedeb){
+            result.encours=true;
+            if(dateNow> datefin){
+              result.encours=false;
+              result.fini=true;
+            }
+          }
           for(i=0;i<result.rows.length;i++){
             if(result.rows[i].mailad==mail){
               result.participate=true;
@@ -158,6 +169,17 @@ var form={
         var query=client.query(stringQuery,function(err,result){
           result.participate=false;
             result.nopart=true;
+            result.encours=false;
+            result.fini=false;
+            datedeb=result.rows[0].datedebformation;
+            datefin=result.rows[0].datefinformation;
+            if(dateNow> datedeb){
+              result.encours=true;
+              if(dateNow> datefin){
+                result.encours=false;
+                result.fini=true;
+              }
+            }
           if(mail==result.rows[0].mailform){
             result.form=true;
           }
@@ -170,6 +192,20 @@ var form={
   getAll: function(req, res) {
     var stringQuery = "SELECT * FROM formation f, diplome d WHERE d.numdiplome=f.numdiplome";
     var query=client.query(stringQuery,function(err,result){
+      dateNow=new Date();
+      for(i=0;i<result.rows.length;i++){
+        result.rows[i].encours=false;
+        result.rows[i].fini=false;
+        datedeb=result.rows[i].datedebformation;
+        datefin=result.rows[i].datefinformation;
+        if(dateNow> datedeb){
+          result.rows[i].encours=true;
+          if(dateNow> datefin){
+            result.rows[i].encours=false;
+            result.rows[i].fini=true;
+          }
+        }
+       }
        res.send(result);
     });
 

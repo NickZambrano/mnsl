@@ -25,7 +25,17 @@
                 <td>{{m.mailad}}</td>
                 <td><a class="btn btn-primary" ng-href="#/membres/{{m.mailad}}">voir profil</a></td>
             </tr>
+
         </table>
+        <div ng-hide="currentPage == 0 && currentPage >= members.length/pageSize - 1">
+        <button class="btn btn-primary btn-sm" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+     Précédent
+ </button>
+{{currentPage+1}}/{{numberOfPages()}}
+ <button class="btn btn-primary btn-sm" ng-disabled="currentPage >= members.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+     Suivant
+ </button>
+ </div>
     </p>
 </div>
 </div></div>

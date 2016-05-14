@@ -7,3 +7,9 @@ myApp.filter('checkmark', function() {
 
   return filterFunction;
 });
+myApp.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
