@@ -42,6 +42,10 @@ code {
 .ng-valid.ng-dirty{
   border-color:green;
 }
+tr{
+  text-align: center;
+}
+
 a.list-group-item {
     height:auto;
     min-height:220px;

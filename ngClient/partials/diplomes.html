@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
 		<div class="well">
-      <a class="btn btn-primary pull-right" ng-href="#/addDiplome" ng-show ="admin">Ajouter un diplome</a>
+      <a class="btn btn-primary pull-right" style="margin-left:-30%" ng-href="#/addDiplome" ng-show ="admin">Ajouter un diplome</a>
         <h1 class="text-center">Diplomes présents de notre société</h1>
         <form>
     <div class="form-group">
@@ -15,10 +15,10 @@
         <p class="lead">
             <table class="table table-striped">
                 <tr>
-                    <th>Numéro de diplome</th>
-                    <th>Nom diplome</th>
-                    <th>Durée du diplome</th>
-                    <th></th>
+                    <th   style="text-align:center">Numéro de diplome</th>
+                    <th   style="text-align:center">Nom diplome</th>
+                    <th   style="text-align:center">Durée du diplome</th>
+                    <th   style="text-align:center"></th>
                 </tr>
                 <tr ng-repeat="d in diplomes | filter:searchDiplome">
                     <td>{{d.numdiplome}}</td>
