@@ -18,7 +18,6 @@ myApp.config(function($routeProvider, $httpProvider) {
 
         }).when('/', {
             templateUrl: 'partials/home.html',
-            controller: 'HomeCtrl',
             access: {
                 requiredLogin: true
             }
@@ -79,6 +78,12 @@ myApp.config(function($routeProvider, $httpProvider) {
         }).when('/Formations/:id', {
             templateUrl: 'partials/voirForm.html',
             controller: 'FormationsCtrl',
+            access: {
+                requiredLogin: true
+            }
+        }).when('/addDip/:id', {
+            templateUrl: 'partials/addMyDip.html',
+            controller: 'addMyDipCtrl',
             access: {
                 requiredLogin: true
             }

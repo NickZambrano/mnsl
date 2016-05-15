@@ -25,12 +25,13 @@
                     <tr>
                         <th   style="text-align:center">Nom</th>
                         <th   style="text-align:center">Prénom</th>
+                        <th ng-show="fini"> Résultat</th>
                     </tr>
                     <tbody>
                       <tr ng-repeat="part in formationDetails">
                           <td>{{part.nomad}}</td>
                           <td>{{part.prenomad}}</td>
-                          <td ng-show="form"><a><i class="glyphicon glyphicon-ok"></i></a></td>
+                          <td ng-show="form"><a ng-click="validateForm(part.numad)"><i class="glyphicon glyphicon-ok"></i></a></td>
                       </tr>
 
                     </tbody>

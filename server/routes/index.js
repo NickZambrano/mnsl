@@ -4,8 +4,8 @@ var router = express.Router();
 var auth = require('./auth.js');
 var members = require('./members.js');
 var dip = require('./dip.js');
+var mydip = require('./mydip.js');
 var form = require('./form.js');
-var user = require('./users.js');
 
 /*
  * Routes that can be accessed by any one
@@ -19,28 +19,23 @@ router.get('/admin', auth.isAdmin);
 router.get('/api/members', members.getAll);
 router.get('/api/members/:id', members.getOne);
 router.get('/api/myProfile', members.getMy);
-router.post('/api/members', members.create);
-router.put('/api/members/:id', members.update);
-router.delete('/api/members/:id', members.delete);
+router.post('/api/members/formateur/', members.formateur);
+
+
 
 
 router.post('/api/dip/addDip', dip.create);
 router.get('/api/dip', dip.getAll);
 
+router.post('/api/dip/addMyDip', mydip.create);
+router.post('/api/dip/getMyDip', mydip.getOne);
+
 router.post('/api/form/addForm', form.create);
+router.post('/api/form/validateForm', form.validateForm);
 router.post('/api/form/addParticipation', form.addPart);
 router.post('/api/form/deleteParticipation', form.deletePart);
 router.post('/api/form/deleteForm', form.delete);
 router.get('/api/form', form.getAll);
 router.get('/api/form/:id', form.getOne);
-
-/*
- * Routes that can be accessed only by authenticated & authorized users
- */
-router.get('/api/v1/admin/users', user.getAll);
-router.get('/api/v1/admin/user/:id', user.getOne);
-router.post('/api/v1/admin/user/', user.create);
-router.put('/api/v1/admin/user/:id', user.update);
-router.delete('/api/v1/admin/user/:id', user.delete);
 
 module.exports = router;

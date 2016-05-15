@@ -6,15 +6,10 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
             if (username !== undefined && password !== undefined) {
                 UserAuthFactory.login(username, password).success(function(data) {
 
-                    AuthenticationFactory.isLogged = true;
-                    AuthenticationFactory.user = data.user.mailad;
-                    AuthenticationFactory.userRole = data.user.role;
                     $window.sessionStorage.token = data.token;
-                    $window.sessionStorage.user = data.user.mailad; // to fetch the user details on refresh
-                    $window.sessionStorage.userRole = data.user.role; // to fetch the user details on refresh
                     $location.path("/");
                 }).error(function(status) {
-                    alert('Oops something went wrong!');
+                    alert('Adresse/mot de passe incorrect');
                 });
             } else {
                 alert('Invalid credentials');

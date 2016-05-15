@@ -1,0 +1,14 @@
+<legend>Formulaire d'ajout de formation</legend>
+<form name="addDip" ng-submit="addDip.$valid && addMyDip()" novalidate>
+<div class="form-group">
+<select name="numdiplome" ng-model="numdiplome" required>
+  <option ng-repeat="d in diplomes" value="{{d.numdiplome}}">{{d.nomdiplome}}</option>
+</select>
+</div>
+<div class="form-group">
+    <label for="dateObtention">Date d'obtention :</label>
+    <input type="date" class="form-control" id="dateObtention"ng-model="dateObtention" required>
+</div>
+
+<input type="submit" class="btn btn-primary" value="Ajouter" />
+</form>

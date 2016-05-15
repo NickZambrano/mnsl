@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
 		<div class="well">
-      <a class="btn btn-primary pull-right" style="margin-left:-30%"ng-href="#/addFormation" ng-show ="admin">Ajouter un diplome</a>
+      <a class="btn btn-primary pull-right" style="margin-left:-30%"ng-href="#/addFormation" ng-show ="admin">Ajouter une formation</a>
         <h1 class="text-center">Formations disponibles</h1>
         Formations à voir :
-        <select class="form-control" style="width:10%"name="typeformation" ng-model="voir">
+        <select class="form-control" style="width:10%"name="typeformation" ng-model="voir" ng-change="affichage(voir)">
           <option value="all">Toutes</option>
           <option value="dispo">Disponibles</option>
           <option value="encours">En cours</option>
@@ -12,7 +12,7 @@
       </select>
     </br>
         <div class="list-group">
-          <div ng-repeat="f in formations  | startFrom:currentPage*pageSize | limitTo:pageSize" class="list-group-item" style="overflow: hidden;"  ng-show="(voir=='encours' && f.encours ) || (voir=='termine' && f.fini ) || (voir!='encours' && !f.encours && voir!='termine' && !f.fini ) || (voir=='all')  ">
+          <div ng-repeat="f in formations  | startFrom:currentPage*pageSize | limitTo:pageSize" class="list-group-item" style="overflow: hidden;" >
                 <div class="media col-md-3">
                     <figure class="pull-left">
                         <img ng-show="f.typeformation == 'RECYCLAGE'"class="media-object img-rounded img-responsive"  src="../images/recyclage.png" alt="placehold.it/350x250" >
