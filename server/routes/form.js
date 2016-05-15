@@ -212,7 +212,7 @@ var form={
 
     return;
   },
-  validateForm(req,res){
+  validateForm: function(req,res){
     var numformation = req.body.numFormation || '';
     var numad=req.body.numAd || ''
      var data = {text: req.body.text, complete: false};
