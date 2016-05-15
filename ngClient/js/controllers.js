@@ -13,12 +13,17 @@ myApp.controller("HeaderCtrl", ['$scope','$rootScope', '$location', 'UserAuthFac
     }
 ]);
 
+myApp.controller("HomeCtrl", ['$scope',
+  function($scope) {
+    $scope.name = "Home Controller";
+  }
+]);
 
-
+/// snipp
 myApp.controller("MembresCtrl", ['$scope', 'membreFactory',
     function($scope, membreFactory) {
         $scope.members = [];
-
+        // Access the factory and get the latest products list
         membreFactory.getMembres().then(function(data) {
 
              $scope.members= data.data.rows;
@@ -34,7 +39,7 @@ myApp.controller("MembresCtrl", ['$scope', 'membreFactory',
 myApp.controller("MembreCtrl", ['$scope', 'membreFactory','$routeParams','mydipFactory',
     function($scope, membreFactory, $routeParams,mydipFactory) {
         $scope.profil = [];
-
+        // Access the factory and get the latest products list
         membreFactory.getOne($routeParams.id).then(function(data) {
 
              $scope.profil= data.data.rows[0];
@@ -56,7 +61,7 @@ myApp.controller("MembreCtrl", ['$scope', 'membreFactory','$routeParams','mydipF
 myApp.controller("myProfileCtrl", ['$scope', 'membreFactory','$routeParams','mydipFactory',
     function($scope, membreFactory, $routeParams,mydipFactory) {
         $scope.profil = [];
-
+        // Access the factory and get the latest products list
         membreFactory.getMy().then(function(data) {
              $scope.profil= data.data;
              mydipFactory.getOne($scope.profil.numad).then(function(data2) {
@@ -72,14 +77,16 @@ myApp.controller("myProfileCtrl", ['$scope', 'membreFactory','$routeParams','myd
 myApp.controller("addFormCtrl", ['$scope','$location', 'dipFactory','formFactory','$filter',
     function($scope,$location,dipFactory, formFactory, $filter) {
         $scope.diplomes = [];
-
+        // Access the factory and get the latest products list
         dipFactory.getDiplomes().then(function(data) {
 
              $scope.diplomes= data.data.rows;
         });
         $scope.addForm = function() {
           if ($scope.typeformation !== undefined && $scope.numdiplome !== undefined) {
-
+          //  datedeb=$scope.datedebformation.getDate().slice(-2)+"/"+("0" + ($scope.datedebformation.getMonth() + 1))+"/"+$scope.datedebformation.getFullYear();
+          //  datefin=$scope.datefinformation.getDate().slice(-2)+"/"+("0" + ($scope.datefinformation.getMonth() + 1))+"/"+$scope.datefinformation.getFullYear();
+            console.log($scope.datefinformation);
               formFactory.addForm($scope.typeformation,$scope.numdiplome,$scope.datedebformation,$scope.datefinformation ,$scope.nbplace).success(function(data) {
                 $location.path("/Formations");
               }).error(function(status) {
