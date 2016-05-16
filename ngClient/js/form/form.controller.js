@@ -36,6 +36,7 @@ myApp.controller("FormationsCtrl", ['$scope', 'formFactory','$routeParams','$rou
         });
         $scope.affichage=function(param){
           j=0;
+          $scope.currentPage = 0;
           $scope.formations=[];
           if(param=="all"){
             $scope.formations=$scope.formationsAll;
