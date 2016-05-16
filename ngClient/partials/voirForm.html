@@ -13,7 +13,7 @@
       <span class="centerspan">          Formation débutant le {{formationDetails[0].datedebformation | limitTo : 10}} finissant le {{formationDetails[0].datefinformation  | limitTo : 10}}
 </span>
                 <div class="col-md-3 col-lg-3 " align="center" ><h2 ng-hide="encours ||fini"> {{formationDetails[0].nbplace-formationDetails[0].nbparticipant}} <small> places restantes </small></h2>
-                  <a class="btn btn-default btn-lg btn-block" ng-hide="participate || form || encours ||fini " ng-click="addPart(formationDetails[0].numformation)"> s'inscrire </a>
+                  <a class="btn btn-default btn-lg btn-block" ng-hide="participate || form || encours ||fini || full" ng-click="addPart(formationDetails[0].numformation)"> s'inscrire </a>
                   <a class="btn btn-default btn-lg btn-block" ng-show="participate && !form && !encours && !fini" ng-click="deletePart(formationDetails[0].numformation)">désinscrire </a>
                   <h3 style="color:orange" ng-show="encours"> Formation en cours</h3>
                   <h3 style="color:red" ng-show="fini">Formation terminée</h3>

@@ -76,7 +76,14 @@ myApp.controller("FormationsCtrl", ['$scope', 'formFactory','$routeParams','$rou
             $scope.participate=data.data.participate;
             $scope.encours=data.data.encours;
             $scope.fini=data.data.fini;
-            console.log(data.data);
+            if((data.data.rows[0].nbplace-data.data.rows[0].nbparticipant)<=0){
+              $scope.full=true;
+
+            }else{
+              $scope.full=false;
+
+            }
+
             $scope.form=data.data.form;
               $scope.nopart=data.data.nopart;
              $scope.formationDetails= data.data.rows;
