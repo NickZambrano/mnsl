@@ -38,6 +38,7 @@ CREATE TABLE Formation(
 CREATE TABLE Participer_Form(
   numFormation INTEGER NOT NULL,
   mailAd VARCHAR(50),
+  result BOOLEAN,
   PRIMARY KEY (numFormation,mailAd),
   CONSTRAINT FK_Participer_mailAd FOREIGN KEY (mailAd) REFERENCES Adherents(mailAd),
   CONSTRAINT FK_Participer_numFormation FOREIGN KEY (numFormation) REFERENCES Formation(numFormation)
@@ -96,34 +97,35 @@ CREATE TRIGGER addPart AFTER INSERT ON participer_form
    CREATE TRIGGER deletePart BEFORE DELETE ON participer_form
      FOR EACH ROW
       EXECUTE PROCEDURE up_nbPlace();
-
+	  
 	  CREATE TRIGGER addPart AFTER INSERT ON participer_form
   FOR EACH ROW
    EXECUTE PROCEDURE down_nbPlace();
 
 
 
-         CREATE OR REPLACE FUNCTION add_dip() RETURNS TRIGGER AS
-         $BODY$
-           DECLARE
-             dateObt Date;
-   		  numDip integer;
-   		  typeForm VARCHAR(20);
-   		  obt VARCHAR(20);
-           BEGIN
-   		select into dateObt,numDip,typeForm dateFinFormation,numDiplome,typeFormation from formation where numformation=NEW.numformation;
-   		  if new.resultatForm='OBTENU' THEN
-   			if typeForm='OBTENTION' THEN
-   			INSERT INTO Diplome_Obtenu VALUES(numDip,NEW.numAd,dateObt);
-   			END IF;
-   			IF typeForm='RECYCLAGE' THEN
-   			UPDATE diplome_obtenu SET dateobtention=dateObt WHERE numad=NEW.numad;
-   			END IF;
-   		  END IF;
-             RETURN NEW;
-           END;
-         $BODY$
-         LANGUAGE 'plpgsql';
+      CREATE OR REPLACE FUNCTION add_dip() RETURNS TRIGGER AS
+      $BODY$
+        DECLARE
+          dateObt Date;
+		  numDip integer;
+		  typeForm VARCHAR(20);
+		  obt VARCHAR(20);
+        BEGIN
+		select into dateObt,numDip,typeForm dateFinFormation,numDiplome,typeFormation from formation where numformation=NEW.numformation;
+		  if new.resultatForm='OBTENU' THEN
+			if typeForm='OBTENTION' THEN
+			INSERT INTO Diplome_Obtenu VALUES(numDip,NEW.numAd,dateObt);
+			END IF;
+			IF typeForm='RECYCLAGE' THEN
+			UPDATE diplome_obtenu SET dateobtention=dateObt WHERE numad=NEW.numad;
+			END IF;
+		  END IF;
+		  UPDATE participer_form SET result=true WHERE mailad=(SELECT mailad FROM adherents WHERE numad=NEW.numad) AND numformation=new.numformation;
+          RETURN NEW;
+        END;
+      $BODY$
+      LANGUAGE 'plpgsql';
 
 
    CREATE TRIGGER goodResult AFTER INSERT ON Resultat

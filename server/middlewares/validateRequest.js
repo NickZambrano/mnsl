@@ -1,5 +1,4 @@
 var jwt = require('jwt-simple');
-var validateUser = require('../routes/auth').validateUser;
 module.exports = function(req, res, next) {
     // When performing a cross domain request, you will recieve
     // a preflighted request first. This is to check if our the app
@@ -20,9 +19,8 @@ module.exports = function(req, res, next) {
                 return;
             }
             // Authorize the user to see if s/he can access our resources
-            var dbUser = validateUser(key); // The key would be the logged in user's username
-            if (dbUser) {
-                if ((req.url.indexOf('admin') >= 0 && dbUser.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/') >= 0)) {
+            if (decoded) {
+                if ((req.url.indexOf('admin') >= 0 && decoded.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/') >= 0)) {
                     next(); // To move to next middleware
                 } else {
                     res.status(403);

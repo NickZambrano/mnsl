@@ -3,7 +3,15 @@ var members = {
     getAll: function(req, res) {
       var stringQuery = "SELECT * FROM adherents";
       var query=client.query(stringQuery,function(err,result){
+        if(err==undefined){
          res.send(result);
+       }else{
+         res.status(500);
+         res.json({
+           "status" : 500,
+           "message" : "failed to select member"
+         })
+       }
       });
 
       return;
@@ -12,7 +20,15 @@ var members = {
         var id = req.params.id;
         var stringQuery = "SELECT * FROM adherents WHERE mailad='"+id+"'";
         var query=client.query(stringQuery,function(err,result){
+          if(err==undefined){
            res.send(result);
+         }else{
+           res.status(500);
+           res.json({
+             "status" : 500,
+             "message" : "failed to select member"
+           })
+         }
         });
 
     },
@@ -22,16 +38,31 @@ var members = {
         id=decoded.mailad;
         var stringQuery = "SELECT * FROM adherents WHERE mailad='"+id+"'";
         var query=client.query(stringQuery,function(err,result){
+          if(err==undefined){
            res.send(result.rows[0]);
+         }else{
+           res.status(500);
+           res.json({
+             "status" : 500,
+             "message" : "failed to select member"
+           })
+         }
         });
 
     },
     formateur: function(req, res) {
         id=req.body.mailad;
         var stringQuery = "UPDATE adherents SET formateur='TRUE' WHERE mailad='"+id+"'";
-        console.log(stringQuery);
         var query=client.query(stringQuery,function(err,result){
+          if(err==undefined){
            res.send(result);
+         }else{
+           res.status(500);
+           res.json({
+             "status" : 500,
+             "message" : "failed to update member"
+           })
+         }
         });
 
     }

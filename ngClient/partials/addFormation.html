@@ -1,24 +1,25 @@
 <legend>Formulaire d'ajout de formation</legend>
 <form name="formForm" ng-submit="formForm.$valid && addForm()" novalidate>
+  <span style="color:red"> *</span> Champs obligatoires
 <div class="form-group">
   <select name="typeformation" ng-model="typeformation" required>
     <option value="RECYCLAGE">Recyclage</option>
     <option value="OBTENTION">Obtention</option>
-</select>
+</select><span style="color:red"> *</span>
 <select name="numdiplome" ng-model="numdiplome" required>
   <option ng-repeat="d in diplomes" value="{{d.numdiplome}}">{{d.nomdiplome}}</option>
-</select>
+</select><span style="color:red"> *</span>
 </div>
 <div class="form-group">
-    <label for="datedebformation">Date de début :</label>
+    <label for="datedebformation">Date de début <span style="color:red"> *</span>:</label>
     <input type="date" class="form-control" id="datedebformation"ng-model="datedebformation" required>
 </div>
 <div class="form-group">
-    <label for="datefinformation">Date de fin :</label>
+    <label for="datefinformation">Date de fin <span style="color:red"> *</span>:</label>
     <input type="date" class="form-control" id="datefinformation"ng-model="datefinformation" required>
 </div>
 <div class="form-group">
-    <label for="nbplace">Nombre de place:</label>
+    <label for="nbplace">Nombre de place <span style="color:red"> *</span> :</label>
     <input type="number" class="form-control" id="nbplace" ng-model="nbplace" required>
 </div>
 <input type="submit" class="btn btn-primary" value="Ajouter" />

@@ -15,6 +15,7 @@ var dip={
     }
       var stringQuery = "INSERT INTO diplome(nomdiplome, dureediplome) values('"+nomDiplome+"','"+dureeDiplome+"')";
       client.query(stringQuery,function(err,result){
+
         if(err==undefined){
           res.status(200);
           res.json({
@@ -34,7 +35,15 @@ var dip={
   getAll: function(req, res) {
     var stringQuery = "SELECT * FROM diplome";
     var query=client.query(stringQuery,function(err,result){
+              if(err==undefined){
        res.send(result);
+     }else{
+       res.status(500);
+       res.json({
+         "status" : 500,
+         "message" : "failed to insert diplome"
+       })
+     }
     });
 
     return;

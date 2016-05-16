@@ -40,6 +40,7 @@ var mydip={
     var stringQuery = "SELECT * FROM Diplome_Obtenu o, Diplome d WHERE numAd='"+id+"' AND o.numdiplome=d.numdiplome";
     dateNow=new Date();
     var query=client.query(stringQuery,function(err,result){
+      if(err==undefined){
       for(i=0;i<result.rows.length;i++){
         result.rows[i].expire=false;
         dateObtention=result.rows[i].dateobtention;
@@ -54,6 +55,14 @@ var mydip={
        }
 
        res.send(result);
+     }else{
+
+       res.status(500);
+       res.json({
+         "status" : 500,
+         "message" : "failed to insert diplome"
+       })
+     }
     });
 
     return;

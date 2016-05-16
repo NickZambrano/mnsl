@@ -25,13 +25,16 @@
                     <tr>
                         <th   style="text-align:center">Nom</th>
                         <th   style="text-align:center">Prénom</th>
-                        <th ng-show="fini"> Résultat</th>
+                        <th ng-show="form" style="text-align:center"> Valider formation</th>
+                        <th ng-show="form" style="text-align:center"> Recaler formation</th>
                     </tr>
                     <tbody>
                       <tr ng-repeat="part in formationDetails">
                           <td>{{part.nomad}}</td>
                           <td>{{part.prenomad}}</td>
-                          <td ng-show="form"><a ng-click="validateForm(part.numad)"><i class="glyphicon glyphicon-ok"></i></a></td>
+                          <td ng-show="form && !part.result"><a ng-click="validateForm(part.numad)"><i class="glyphicon glyphicon-ok"></i></a></td>
+                          <td ng-show="form && !part.result"><a ng-click="failedForm(part.numad)"><i class="glyphicon glyphicon-remove"></i></a></td>
+                          <td ng-show="form && part.result"> Déjà évalué</td>
                       </tr>
 
                     </tbody>

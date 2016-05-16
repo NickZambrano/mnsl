@@ -10,7 +10,6 @@ var form={
     var datefinformation = req.body.datefinformation || '';
     var typeformation = req.body.typeformation || '';
     var nbplace = req.body.nbplace || '';
-    console.log(req.body);
      var data = {text: req.body.text, complete: false};
 
     if (numdiplome == '' || datedebformation == '' || typeformation == '') {
@@ -22,12 +21,21 @@ var form={
         return;
     }
       var stringQuery = "INSERT INTO formation(mailform, numdiplome, datedebformation,datefinformation,typeformation,nbparticipant,nbplace) values('"+mailform+"','"+numdiplome+"','"+datedebformation+"','"+datefinformation+"','"+typeformation+"','0','"+nbplace+"')";
-      client.query(stringQuery);
+      client.query(stringQuery,function(err,result){
+      if(err==undefined){
       res.status(200);
       res.json({
         "status" : 200,
         "message" : "succes to insert formation"
       })
+    }else{
+      res.status(500);
+      res.json({
+        "status" : 500,
+        "message" : "failed to insert diplome"
+      })
+    }
+    });
       return;
   },
   addPart : function(req,res){
@@ -47,7 +55,7 @@ var form={
     }
 
 
-      var stringQuery = "INSERT INTO participer_form VALUES ('"+numformation+"','"+id+"')";
+      var stringQuery = "INSERT INTO participer_form VALUES ('"+numformation+"','"+id+"','false')";
             client.query(stringQuery,function(err,result){
               if(err==undefined){
                 res.status(200);
@@ -56,7 +64,6 @@ var form={
                   "message" : "succes to insert participer_form"
                 })
               }else{
-                console.log(err);
                 res.status(500);
                 res.json({
                   "status" : 500,
@@ -90,7 +97,6 @@ var form={
                   "message" : "succes to delete participer_form"
                 })
               }else{
-                console.log(err);
                 res.status(500);
                 res.json({
                   "status" : 500,
@@ -122,7 +128,6 @@ var form={
                   "message" : "succes to delete in formation"
                 })
               }else{
-                console.log(err);
                 res.status(500);
                 res.json({
                   "status" : 500,
@@ -134,13 +139,15 @@ var form={
   },
   getOne: function(req, res) {
       var id = req.params.id;
-      var stringQuery = "SELECT f.mailform,a.nomad, a.numad, a.prenomad,a.mailad, f.typeformation, d.nomdiplome, f.nbplace, f.nbparticipant,f.numformation, f.datedebformation,f.datefinformation FROM Formation f, diplome d, adherents a, participer_Form p WHERE f.numformation='"+id+"' AND p.numformation=f.numformation AND a.mailad=p.mailad AND d.numdiplome=f.numdiplome";
+      var stringQuery = "SELECT f.mailform,a.nomad, a.numad, a.prenomad,a.mailad, f.typeformation, d.nomdiplome, f.nbplace, f.nbparticipant,f.numformation, f.datedebformation,f.datefinformation, p.result FROM Formation f, diplome d, adherents a, participer_Form p WHERE f.numformation='"+id+"' AND p.numformation=f.numformation AND a.mailad=p.mailad AND d.numdiplome=f.numdiplome";
       var query=client.query(stringQuery,function(err,result){
+        if(err==undefined){
 
         var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
         var decoded = jwt.decode(token, require('../config/secret.js')());
         mail=decoded.mailad;
         if(result.rows[0]!=undefined){
+          dateNow=new Date();
 
           result.nopart=false;
           result.participate=false;
@@ -165,13 +172,16 @@ var form={
           result.form=true;
         }
                  res.send(result);
+
       }else{
         var stringQuery = "SELECT f.mailform , f.typeformation, d.nomdiplome, f.nbplace, f.nbparticipant,f.numformation, f.datedebformation,f.datefinformation FROM Formation f, diplome d WHERE f.numformation='"+id+"' AND d.numdiplome=f.numdiplome";
         var query=client.query(stringQuery,function(err,result){
+          if(err==undefined){
           result.participate=false;
             result.nopart=true;
             result.encours=false;
             result.fini=false;
+            dateNow=new Date();
             datedeb=result.rows[0].datedebformation;
             datefin=result.rows[0].datefinformation;
             if(dateNow> datedeb){
@@ -185,14 +195,28 @@ var form={
             result.form=true;
           }
           res.send(result);
+        }else{
+          res.status(500);
+          res.json({
+            "status" : 500,
+            "message" : "failed to insert diplome"
+          })
+        }
         })
       }
-      });
+                 }else{
+                       res.status(500);
+                       res.json({
+                         "status" : 500,
+                         "message" : "failed to insert diplome"
+                       })
+                     }});
 
   },
   getAll: function(req, res) {
     var stringQuery = "SELECT * FROM formation f, diplome d WHERE d.numdiplome=f.numdiplome";
     var query=client.query(stringQuery,function(err,result){
+      if(err==undefined){
       dateNow=new Date();
       for(i=0;i<result.rows.length;i++){
         result.rows[i].encours=false;
@@ -208,6 +232,13 @@ var form={
         }
        }
        res.send(result);
+     }else{
+       res.status(500);
+       res.json({
+         "status" : 500,
+         "message" : "failed to insert diplome"
+       })
+     }
     });
 
     return;
@@ -231,18 +262,50 @@ var form={
               res.status(200);
               res.json({
                 "status" : 200,
-                "message" : "succes to insert participer_form"
+                "message" : "succes to insert Resultat"
               })
             }else{
               console.log(err);
               res.status(500);
               res.json({
                 "status" : 500,
-                "message" : "failed to insert participer_form"
+                "message" : "failed to insert Resultat"
               })
             }
           });
     return;
-  }
+  },
+  failedForm: function(req,res){
+      var numformation = req.body.numFormation || '';
+      var numad=req.body.numAd || ''
+       var data = {text: req.body.text, complete: false};
+      if (numformation == '' || numad =='') {
+          res.status(401);
+          res.json({
+              "status": 401,
+              "message": "Invalid credentials"
+          });
+          return;
+      }
+
+      var stringQuery = "INSERT INTO Resultat VALUES ('"+numformation+"','"+numad+"','RECALE')";
+            client.query(stringQuery,function(err,result){
+              if(err==undefined){
+                res.status(200);
+                res.json({
+                  "status" : 200,
+                  "message" : "succes to insert Resultat"
+                })
+              }else{
+                console.log(err);
+                res.status(500);
+                res.json({
+                  "status" : 500,
+                  "message" : "failed to insert Resultat"
+                })
+              }
+            });
+      return;
+    }
 }
 module.exports = form;

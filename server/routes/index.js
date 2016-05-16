@@ -32,6 +32,7 @@ router.post('/api/dip/getMyDip', mydip.getOne);
 
 router.post('/api/form/addForm', form.create);
 router.post('/api/form/validateForm', form.validateForm);
+router.post('/api/form/failedForm', form.failedForm);
 router.post('/api/form/addParticipation', form.addPart);
 router.post('/api/form/deleteParticipation', form.deletePart);
 router.post('/api/form/deleteForm', form.delete);
