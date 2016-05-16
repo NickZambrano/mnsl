@@ -2,7 +2,7 @@ myApp.factory('membreFactory', function($http) {
     /** https://docs.angularjs.org/guide/providers **/
     var portLocal="http://localhost";
     var portDist="http://109.30.180.96"
-    var urlBase = portLocal+':3000/api/members';
+    var urlBase = portDist+':3000/api/members';
     var _membFactory = {};
     _membFactory.getMembres = function() {
         return $http.get(urlBase);
@@ -12,7 +12,7 @@ myApp.factory('membreFactory', function($http) {
     };
     _membFactory.getMy = function() {
 
-        return $http.get(portLocal+":3000/api/myProfile");
+        return $http.get(portDist+":3000/api/myProfile");
     };
     _membFactory.formateur= function(id){
         return $http.post(urlBase+"/formateur/",{

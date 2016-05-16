@@ -2,7 +2,7 @@ myApp.factory('formFactory', function($http) {
     /** https://docs.angularjs.org/guide/providers **/
     var portLocal="http://localhost";
     var portDist="http://109.30.180.96"
-    var urlBase = portLocal+':3000/api/form';
+    var urlBase = portDist+':3000/api/form';
     var _formFactory = {};
     return{
       getFormations:function(){

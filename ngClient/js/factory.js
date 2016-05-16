@@ -4,7 +4,7 @@ myApp.factory('HeaderFact',function($http){
     isAdmin:function(){
       var portLocal="http://localhost";
       var portDist="http://109.30.180.96"
-      return $http.get(portLocal+":3000/admin");
+      return $http.get(portDist+":3000/admin");
     },
   }
 
